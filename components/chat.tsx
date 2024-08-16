@@ -11,7 +11,7 @@ interface Participant {
 
 interface Comment {
   id: number;
-  type: 'text';
+  type: 'text' | 'image' | 'video' | 'pdf';
   message: string;
   sender: string;
 }
@@ -66,6 +66,30 @@ const ChatPage = () => {
     return <div>Loading...</div>;
   }
 
+  const renderMessageContent = (comment: Comment) => {
+    switch (comment.type) {
+      case 'text':
+        return <p>{comment.message}</p>;
+      case 'image':
+        return <img src={comment.message} alt="Image" className="max-w-full h-auto" />;
+      case 'video':
+        return (
+          <video controls className="max-w-full h-auto">
+            <source src={comment.message} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        );
+      case 'pdf':
+        return (
+          <a href={comment.message} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+            View PDF Document
+          </a>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen max-w-xl mx-auto p-4">
       {/* Header Chat */}
@@ -83,17 +107,12 @@ const ChatPage = () => {
         {chatData.comments.map((comment) => (
           <div
             key={comment.id}
-            className={`flex flex-col max-w-[100%] ${comment.sender === 'customer@mail.com' ? 'items-end' : 'items-start'}`}
+            className={`flex ${comment.sender === 'customer@mail.com' ? 'justify-end' : 'justify-start'}`}
           >
-            <Card
-              className={`${comment.sender === 'customer@mail.com' ? 'self-end bg-blue-200' : 'self-start bg-gray-100'
-                }`}
-            >
+            <Card className={`message-card ${comment.sender === 'customer@mail.com' ? 'bg-blue-200' : 'bg-gray-100'}`}>
               <CardBody>
-                {comment.sender !== 'customer@mail.com' && (
-                  <p className="font-semibold text-left">{getSenderName(comment.sender)}</p>
-                )}
-                <p>{comment.message}</p>
+                <p className="font-semibold">{getSenderName(comment.sender)}</p>
+                {renderMessageContent(comment)}
               </CardBody>
             </Card>
           </div>
@@ -119,4 +138,5 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
+
 
