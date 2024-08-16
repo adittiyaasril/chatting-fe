@@ -1,6 +1,5 @@
 "use client"
 "use client";
-"use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardBody, Avatar, Input, Button } from '@nextui-org/react';
 
@@ -53,7 +52,7 @@ const ChatPage = () => {
         id: Date.now(),
         type: 'text',
         message: newMessage,
-        sender: 'customer@mail.com', // Misal, gunakan sender dari user login
+        sender: 'customer@mail.com',
       };
       setChatData((prevState) => ({
         ...prevState!,
@@ -80,16 +79,20 @@ const ChatPage = () => {
         <h1 className="text-xl font-bold">{chatData.room.name}</h1>
       </div>
 
-      {/* Bagian Pesan yang bisa di-scroll dengan scrollbar tersembunyi */}
       <div className="flex-1 overflow-y-auto space-y-4 mb-4 hide-scrollbar">
         {chatData.comments.map((comment) => (
           <div
             key={comment.id}
-            className={`flex ${comment.sender === 'customer@mail.com' ? 'justify-end' : 'justify-start'}`}
+            className={`flex flex-col max-w-[100%] ${comment.sender === 'customer@mail.com' ? 'items-end' : 'items-start'}`}
           >
-            <Card className={`message-card ${comment.sender === 'customer@mail.com' ? 'bg-blue-200' : 'bg-gray-100'}`}>
+            <Card
+              className={`${comment.sender === 'customer@mail.com' ? 'self-end bg-blue-200' : 'self-start bg-gray-100'
+                }`}
+            >
               <CardBody>
-                <p className="font-semibold">{getSenderName(comment.sender)}</p>
+                {comment.sender !== 'customer@mail.com' && (
+                  <p className="font-semibold text-left">{getSenderName(comment.sender)}</p>
+                )}
                 <p>{comment.message}</p>
               </CardBody>
             </Card>
@@ -98,7 +101,7 @@ const ChatPage = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input untuk mengirim pesan */}
+
       <div className="flex items-center space-x-2">
         <Input
           fullWidth
@@ -107,7 +110,7 @@ const ChatPage = () => {
           onChange={(e) => setNewMessage(e.target.value)}
           className="flex-1"
         />
-        <Button auto onClick={handleSendMessage}>
+        <Button onClick={handleSendMessage}>
           Send
         </Button>
       </div>
@@ -116,5 +119,4 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
-
 

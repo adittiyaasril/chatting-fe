@@ -17,7 +17,7 @@
         },
         {
           "id": "customer@mail.com",
-          "name": "king customer",
+          "name": "King Customer",
           "role": 2
         }
       ]
@@ -52,6 +52,24 @@
         "type": "text",
         "message": "Baik, silahkan kirimkan lampiran bukti pembayarannya",
         "sender": "agent@mail.com"
+      },
+      {
+        "id": 885517,
+        "type": "pdf",
+        "message": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        "sender": "customer@mail.com"
+      },
+      {
+        "id": 885518,
+        "type": "video",
+        "message": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4",
+        "sender": "agent@mail.com"
+      },
+      {
+        "id": 885519,
+        "type": "image",
+        "message": "https://picsum.photos/200",
+        "sender": "customer@mail.com"
       }
     ]
   }
