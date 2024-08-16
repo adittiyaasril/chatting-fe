@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Tambahkan ini ke global.css atau styles.css */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+.message-card {
+  max-width: 75%; /* Atur lebar maksimum card */
+  word-wrap: break-word; /* Memastikan pesan panjang terputus dengan benar */
+}
